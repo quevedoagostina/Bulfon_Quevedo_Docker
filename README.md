@@ -21,7 +21,7 @@ Este miniblog permite a los usuarios crear y compartir sus propios posteos. Util
 1. Ejecuta Docker Compose para construir y levantar los contenedores:
 
     ```bash
-    docker-compose up --build
+    docker compose up --build
     ```
 
     Esto construirá las imágenes y pondrá en marcha los contenedores definidos en el archivo `docker-compose.yml`.
