@@ -1,0 +1,11 @@
+# Archivos y directorios a ignorar por Git
+
+# Directorios generados automáticamente
+__pycache__/
+
+# Entornos virtuales
+venv/
+env/
+
+# Archivo de variables de entorno sensible
+.env
