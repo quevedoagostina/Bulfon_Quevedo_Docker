@@ -1,23 +1,27 @@
-# Usa la imagen de Python como base
-FROM python:3.9
+#imagen python.
+FROM python:3.9-alpine
 
-# Establece la variable de entorno PYTHONUNBUFFERED a '1' para que Python no bufeé la salida
-ENV PYTHONUNBUFFERED 1
+#Copia el directorio del contenedor.
+COPY . /sql_alchemy
+WORKDIR /sql_alchemy
 
-# Establece el directorio de trabajo en /app
-WORKDIR /app
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# Copia los archivos de requerimientos al directorio de trabajo
-COPY requirements.txt /app/
 
-# Instala las dependencias
-RUN pip install --no-cache-dir -r requirements.txt
+#expone el puerto del contenedor
+EXPOSE 5005
 
-# Copia el contenido actual al directorio de trabajo
-COPY . /app/
 
-# Expone el puerto 5000 en el contenedor
-EXPOSE 5000
+# Define environment variables
+ENV FLASK_APP=app/__init__.py
+ENV FLASK_RUN_HOST=0.0.0.0
 
-# Comando a ejecutar cuando se inicie el contenedor
-CMD ["./setup.sh"]
+
+
+# Make the script executable
+# RUN chmod +x /sql_alchemy/run.sh
+
+# Run the script when the container starts
+CMD ["sh", "run.sh"]
+# CMD ["flask", "run","--host=0.0.0.0", "--port=5005"]
