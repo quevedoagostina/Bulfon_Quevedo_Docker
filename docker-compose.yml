@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3307:3306"
-    command: --init-file /docker-entrypoint-initdb.d/create_schema.sql
+    # command: --init-file /docker-entrypoint-initdb.d/create_schema.sql
     restart: always
     container_name: ${MYSQL_CONTAINER_NAME}
     volumes:
