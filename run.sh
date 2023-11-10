@@ -1,23 +1,27 @@
 #!/bin/bash
+# Sleep for 10 seconds before running migrations
+echo 'sleep 10 secs'
+sleep 10
 
-# Clonar el repositorio (opcional si ya está clonado)
-# git clone git@github.com:quevedoagostina/Bulfon_Quevedo_MiniBlog.git
-# cd Bulfon_Quevedo_MiniBlog
+# echo 'run db script'
+# # Define the number of retries
 
-# Crear y activar el entorno virtual (asegúrate de tener el entorno virtual ya creado)
-# source tu_entorno/bin/activate
+# # Run your first command (e.g., flask db init)
+# echo 'run flask db init'
+# flask db init
 
-# Instalar las dependencias
-pip install -r requirements.txt
+# # Run your second command (e.g., another command)
+# echo 'run flask db migrate'
+# flask db migrate -m "initial migration"
 
-# Crear migraciones iniciales
-flask db init
+# # Run your third command (e.g., yet another command)
+# echo 'run flask db upgrade'
+# flask db upgrade
 
-# Realizar los cambios necesarios
-flask db migrate -m "..."
+# Start your Flask application
+echo 'start gunicorn server'
+gunicorn app:app --bind 0.0.0.0:5005 #module_name:application_variable_name
 
-# Aplicar las migraciones a la base de datos
-flask db upgrade
-
-# Iniciar la aplicación
-flask run --reload
+#0.0.0.0: This is the host IP address.
+#Using 0.0.0.0 means Gunicorn will listen on all available network interfaces,
+# making the application accessible from outside the container.
