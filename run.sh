@@ -20,4 +20,4 @@ flask db migrate -m "..."
 flask db upgrade
 
 # Iniciar la aplicación
-flask run --host=0.0.0.0
+flask run --reload

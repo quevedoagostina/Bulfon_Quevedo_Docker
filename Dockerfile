@@ -14,7 +14,7 @@ EXPOSE 5005
 
 
 # Define environment variables
-ENV FLASK_APP=app/__init__.py
+ENV FLASK_APP=app/app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
 
