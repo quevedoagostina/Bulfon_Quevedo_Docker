@@ -1,6 +1,7 @@
 from flask import jsonify
-from app import app, ma, db, Usuario, Entrada, Comentario, Categoria
+from app import app, ma
 from marshmallow import Schema, fields, post_load
+from .models import Usuario, Categoria, Entrada, Comentario
 
 class UsuarioSchema(ma.Schema):
     id = fields.Integer(dump_only=True)

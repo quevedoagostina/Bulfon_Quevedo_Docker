@@ -1,27 +1,15 @@
 #!/bin/bash
+
 # Sleep for 10 seconds before running migrations
-echo 'sleep 10 secs'
+echo 'Sleeping for 10 seconds...'
 sleep 10
 
-# echo 'run db script'
-# # Define the number of retries
+echo 'Running database migrations'
+export PYTHONPATH=/usr/local/lib/python3.9/site-packages:/path/to/marshmallow
+export FLASK_APP=app/app.py
+flask db init
+flask db migrate
+flask db upgrade
 
-# # Run your first command (e.g., flask db init)
-# echo 'run flask db init'
-# flask db init
-
-# # Run your second command (e.g., another command)
-# echo 'run flask db migrate'
-# flask db migrate -m "initial migration"
-
-# # Run your third command (e.g., yet another command)
-# echo 'run flask db upgrade'
-# flask db upgrade
-
-# Start your Flask application
-echo 'start gunicorn server'
-gunicorn app:app --bind 0.0.0.0:5005 #module_name:application_variable_name
-
-#0.0.0.0: This is the host IP address.
-#Using 0.0.0.0 means Gunicorn will listen on all available network interfaces,
-# making the application accessible from outside the container.
+echo 'Starting Gunicorn server'
+gunicorn -b 0.0.0.0:5005 app.app:app

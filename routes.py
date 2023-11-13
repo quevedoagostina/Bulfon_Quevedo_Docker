@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, flash
 from app import app, db
 from models import Usuario, Entrada, Comentario, Categoria
-from views import UsuarioView, EntradaView, ComentarioView, CategoriaView
+from app.views import UsuarioView, EntradaView, ComentarioView, CategoriaView
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime, timedelta
 import secrets
@@ -14,7 +14,7 @@ categoria_view = CategoriaView.as_view('categoria_view')
 
 from models import Usuario, Entrada, Comentario, Categoria
 from schemas import UsuarioSchema, CategoriaSchema, EntradaSchema, ComentarioSchema
-from views import UsuarioView, EntradaView, ComentarioView, CategoriaView
+from app.views import UsuarioView, EntradaView, ComentarioView, CategoriaView
 
 # Crear instancias de las clases MethodView
 usuario_view = UsuarioView.as_view('usuario_view')

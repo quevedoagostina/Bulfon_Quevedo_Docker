@@ -1,6 +1,7 @@
 #imagen python.
 FROM python:3.9-alpine
 
+
 #Copia el directorio del contenedor.
 COPY . /sql_alchemy
 WORKDIR /sql_alchemy
@@ -14,8 +15,9 @@ EXPOSE 5005
 
 
 # Define environment variables
-ENV FLASK_APP=app.py
+ENV FLASK_APP=app/app.py
 ENV FLASK_RUN_HOST=0.0.0.0
+ENV PYTHONPATH=/usr/local/lib/python3.10/site-packages/marshmallow
 
 
 
@@ -23,5 +25,4 @@ ENV FLASK_RUN_HOST=0.0.0.0
 # RUN chmod +x /sql_alchemy/run.sh
 
 # Run the script when the container starts
-CMD ["sh", "run.sh"]
-# CMD ["flask", "run","--host=0.0.0.0", "--port=5005"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5005"]

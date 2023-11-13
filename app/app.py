@@ -19,7 +19,6 @@ from flask_jwt_extended import (
     get_jwt,
 )
 from flask_marshmallow import Marshmallow
-from marshmallow import fields
 import secrets
 from werkzeug.security import (
     check_password_hash,
@@ -43,14 +42,14 @@ ma = Marshmallow(app)
 
 load_dotenv()
 
-from models import Usuario, Entrada, Comentario, Categoria
-from schemas import (
+
+from app.schemas import (
     UsuarioSchema,
     CategoriaSchema,
     EntradaSchema,
     ComentarioSchema,
 )
-from views import UsuarioView, EntradaView, ComentarioView, CategoriaView
+from app.views import UsuarioView, EntradaView, ComentarioView, CategoriaView
 
 # Crear instancias de las clases MethodView
 usuario_view = UsuarioView.as_view("usuario_view")

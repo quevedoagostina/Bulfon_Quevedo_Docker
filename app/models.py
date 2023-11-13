@@ -1,4 +1,7 @@
-from app import app, db
+from app import app
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy(app)
 
 class Usuario(db.Model):
     __tablename__ = 'usuario'
@@ -30,3 +33,4 @@ class Categoria(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False, unique=True)
     entradas = db.relationship('Entrada', back_populates='categoria')
+
