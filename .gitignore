@@ -1,11 +1,20 @@
-# Archivos y directorios a ignorar por Git
-
-# Directorios generados automáticamente
 __pycache__/
-
-# Entornos virtuales
-venv/
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+node_modules/
+*.db
+*.sqlite3
+.env
+env
 env/
 
-# Archivo de variables de entorno sensible
-.env
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
