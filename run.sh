@@ -1,27 +1,17 @@
-#!/bin/bash
-# Sleep for 10 seconds before running migrations
-echo 'sleep 10 secs'
-sleep 10
 
-echo 'run db script'
-# Define the number of retries
+# Sleep for 20 seconds before running migrations
+echo 'Sleeping for 20 seconds...'
+sleep 20
 
-# Run your first command (e.g., flask db init)
-echo 'run flask db init'
+# Use wait-for-it.sh to wait for MySQL to be available
+./wait-for-it.sh bulfon_quevedo_mysql:3306 -t 120
+
+# Running database migrations
+export PYTHONPATH=/usr/local/lib/python3.9/site-packages:/path/to/marshmallow
+export FLASK_APP=app.app:app
 flask db init
-
-# Run your second command (e.g., another command)
-echo 'run flask db migrate'
-flask db migrate -m "initial migration"
-
-# Run your third command (e.g., yet another command)
-echo 'run flask db upgrade'
+flask db migrate
 flask db upgrade
 
-# Start your Flask application
-echo 'start gunicorn server'
-gunicorn app:app --bind 0.0.0.0:5005 #module_name:application_variable_name
-
-#0.0.0.0: This is the host IP address.
-#Using 0.0.0.0 means Gunicorn will listen on all available network interfaces,
-# making the application accessible from outside the container.
+# Starting Gunicorn server
+gunicorn -b 0.0.0.0:5005 app.app:app

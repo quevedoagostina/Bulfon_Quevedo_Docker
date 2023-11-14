@@ -3,13 +3,12 @@ services:
   mysql_db:
     image: mysql:5.7
     env_file:
-        - .env
+      - .env
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3307:3306"
-    # command: --init-file /docker-entrypoint-initdb.d/create_schema.sql
+      - "3306:3306"
     restart: always
     container_name: ${MYSQL_CONTAINER_NAME}
     volumes:
@@ -29,6 +28,7 @@ services:
     depends_on:
       - mysql_db
     container_name: flask_app_b
+
 
 volumes:
   db_data:
