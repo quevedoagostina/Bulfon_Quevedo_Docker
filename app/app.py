@@ -47,7 +47,7 @@ load_dotenv()
 
 db.init_app(app)  
 
-
+    
 @app.context_processor
 def categorias_disponibles():
     categorias = Categoria.query.all()
@@ -201,4 +201,8 @@ def logout_view():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()  # Crea las tablas si no existen
+        Categoria.crear_categorias_predeterminadas()  # Crea las categorías predeterminadas
+
     app.run(host="0.0.0.0", port=os.environ.get("FLASK_RUN_PORT"))

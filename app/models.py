@@ -31,3 +31,21 @@ class Categoria(db.Model):
     nombre = db.Column(db.String(100), nullable=False, unique=True)
     entradas = db.relationship('Entrada', back_populates='categoria')
 
+    @classmethod
+    def crear_categorias_predeterminadas(cls):
+        print("Creando categorías predeterminadas...")
+        categorias_predeterminadas = [
+            Categoria(nombre='Personal'),
+            Categoria(nombre='Deportes'),
+            Categoria(nombre='Moda'),
+            Categoria(nombre='Juegos'),
+            Categoria(nombre='Espectaculo')
+        ]
+
+        for categoria in categorias_predeterminadas:
+            existing_categoria = cls.query.filter_by(nombre=categoria.nombre).first()
+            if not existing_categoria:
+                db.session.add(categoria)
+
+        db.session.commit()
+
