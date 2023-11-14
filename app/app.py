@@ -27,6 +27,10 @@ from werkzeug.security import (
 from datetime import datetime, timedelta
 import os
 from dotenv import load_dotenv
+from . import db 
+
+# Importa las clases de modelos
+from .models import Usuario, Entrada, Comentario, Categoria
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "1234"
@@ -35,80 +39,13 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
 )  # Esta línea debe ir después de SECRET_KEY
 app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
 
-db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 jwt = JWTManager(app)
 ma = Marshmallow(app)
 
 load_dotenv()
 
-
-from app.schemas import (
-    UsuarioSchema,
-    CategoriaSchema,
-    EntradaSchema,
-    ComentarioSchema,
-)
-from app.views import UsuarioView, EntradaView, ComentarioView, CategoriaView
-
-# Crear instancias de las clases MethodView
-usuario_view = UsuarioView.as_view("usuario_view")
-entrada_view = EntradaView.as_view("entrada_view")
-comentario_view = ComentarioView.as_view("comentario_view")
-categoria_view = CategoriaView.as_view("categoria_view")
-
-# Definir las rutas para acceder a las vistas
-app.add_url_rule(
-    "/usuarios/",
-    defaults={"user_id": None},
-    view_func=usuario_view,
-    methods=["GET"],
-)
-app.add_url_rule("/usuarios/", view_func=usuario_view, methods=["POST"])
-app.add_url_rule(
-    "/usuarios/<int:user_id>",
-    view_func=usuario_view,
-    methods=["GET", "PUT", "DELETE"],
-)
-
-app.add_url_rule(
-    "/entradas/",
-    defaults={"entrada_id": None},
-    view_func=entrada_view,
-    methods=["GET"],
-)
-app.add_url_rule("/entradas/", view_func=entrada_view, methods=["POST"])
-app.add_url_rule(
-    "/entradas/<int:entrada_id>",
-    view_func=entrada_view,
-    methods=["GET", "PUT", "DELETE"],
-)
-
-app.add_url_rule(
-    "/comentarios/",
-    defaults={"comentario_id": None},
-    view_func=comentario_view,
-    methods=["GET"],
-)
-app.add_url_rule("/comentarios/", view_func=comentario_view, methods=["POST"])
-app.add_url_rule(
-    "/comentarios/<int:comentario_id>",
-    view_func=comentario_view,
-    methods=["GET", "PUT", "DELETE"],
-)
-
-app.add_url_rule(
-    "/categorias/",
-    defaults={"categoria_id": None},
-    view_func=categoria_view,
-    methods=["GET"],
-)
-app.add_url_rule("/categorias/", view_func=categoria_view, methods=["POST"])
-app.add_url_rule(
-    "/categorias/<int:categoria_id>",
-    view_func=categoria_view,
-    methods=["GET", "PUT", "DELETE"],
-)
+db.init_app(app)  
 
 
 @app.context_processor
@@ -264,4 +201,4 @@ def logout_view():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=5005)
+    app.run(host="0.0.0.0", port=os.environ.get("FLASK_RUN_PORT"))
